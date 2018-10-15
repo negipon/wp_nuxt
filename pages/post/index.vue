@@ -35,14 +35,11 @@ export default {
       })
       store.commit('setCachePosts', posts.data)
     }
-
-    store.commit('setCurrentPosts')
     store.commit('setCurrentQuery', query)
   },
 
   computed: {
     articles () {
-      // const page = this.$store.state.cachePages[this.$store.state.currentPath] || {}
       return this.$store.state.currentPosts.map((postSlug) => {
         return this.$store.state.cachePosts[postSlug] || {}
       })

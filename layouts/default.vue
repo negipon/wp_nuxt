@@ -1,53 +1,105 @@
 <template>
-  <div>
-    <nuxt/>
+  <div id="container">
+    <TheHeader/>
+    <main>
+      <nuxt />
+    </main>
+    <TheFooter/>
   </div>
 </template>
 
-<style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<style lang="stylus">
+@import '~assets/style/settings'
 
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+.font-light
+  font-weight: $font-weight-light
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+.font-regular
+  font-weight: $font-weight-regular
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+.font-heavy
+  font-weight: $font-weight-heavy
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+// utility
+.text-left
+  text-align: left
+
+.text-right
+  text-align: right
+
+.text-center
+  text-align: center
+
+.text-justify
+  text-align: justify
+
+
+.center
+  margin-left: auto
+  margin-right: auto
+
+.right
+  float: right
+
+.left
+  float: left
+
+.hide
+  display: none
+
++media("small-only")
+  .hide-small-only
+    display: none
+
 </style>
 
+<script>
+import TheHeader from '../components/TheHeader'
+import TheFooter from '../components/TheFooter'
+import Loader from '~/components/Loader'
+
+export default {
+  data () {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      items: [
+        { icon: 'apps', title: 'Welcome', to: '/' },
+        { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
+      ],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: 'Vuetify.js'
+    }
+  },
+  components: {
+    TheHeader,
+    TheFooter,
+    Loader
+  },
+  methods: {
+    async defaultPostCache () {
+      const query = {
+        orderby: 'date',
+        per_page: 10,
+        page: 1,
+        _embed: 1
+      }
+      if (!this.$store.state.cachePages['/']) {
+        const posts = await this.$api.get('/posts', query)
+        this.$store.commit('setCachePages', {
+          path: '/',
+          posts: posts.data
+        })
+        this.$store.commit('setCachePosts', posts.data)
+      }
+    }
+  },
+  mounted () {
+    this.defaultPostCache()
+  }
+}
+</script>

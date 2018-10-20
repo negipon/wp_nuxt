@@ -33,7 +33,7 @@ export default {
   },
   head() {
     return {
-      title: `Nuxt WordPress | ${this.post.title.rendered}`,
+      title: `${this.post.title.rendered} | 特価情報ツウ！ `,
       meta: [
         {
           name: 'description',

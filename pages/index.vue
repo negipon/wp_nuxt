@@ -1,70 +1,65 @@
 <template>
-  <section class="home-container main-container container section">
-    <ArticleList
-      :articles="articles"
-      :query="$store.state.currentQuery"
-    />
+  <section class="container">
+    <div>
+      <app-logo/>
+      <h1 class="title">
+        lunch
+      </h1>
+      <h2 class="subtitle">
+        Nuxt.js project
+      </h2>
+      <div class="links">
+        <a
+          href="https://nuxtjs.org/"
+          target="_blank"
+          class="button--green">Documentation</a>
+        <a
+          href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
+          class="button--grey">GitHub</a>
+      </div>
+    </div>
   </section>
 </template>
 
-<style lang="stylus" scoped>
-
-</style>
-
-
 <script>
-import { mapGetters, mapState } from 'vuex'
-import ArticleList from '~/components/ArticleList'
+import AppLogo from '~/components/AppLogo.vue'
 
 export default {
-  async asyncData ({ app, store, params, route }) {
-    store.commit('setCurrentPath', route.path)
-
-    const query = {
-      orderby: 'date',
-      per_page: 10,
-      page: 1,
-      _embed: 1
-    }
-
-    if (!store.state.cachePages[route.path]) {
-      const posts = await app.$api.get('/posts', query)
-      store.commit('setCachePages', {
-        path: route.path,
-        posts: posts.data
-      })
-      store.commit('setCachePosts', posts.data)
-    }
-
-    store.commit('setCurrentPosts')
-    store.commit('setCurrentQuery', query)
-  },
-
-  computed: {
-    articles () {
-      // const page = this.$store.state.cachePages[this.$store.state.currentPath] || {}
-      return this.$store.state.currentPosts.map((postSlug) => {
-        return this.$store.state.cachePosts[postSlug] || {}
-      })
-    },
-    ...mapState([
-    ]),
-    ...mapGetters([
-      'currentPage'
-    ])
-  },
-
   components: {
-    ArticleList
-  },
-
-  head () {
-    return {
-      title: `Home | ${this.$store.state.meta.name}`,
-      meta: [
-        { description: this.$store.state.meta.description }
-      ]
-    }
+    AppLogo
   }
 }
 </script>
+
+<style>
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
+}
+</style>
+

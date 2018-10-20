@@ -4,7 +4,7 @@
       Recent Posts
     </h3>
     <ul>
-      <li v-for="item in posts">
+      <li v-for="(item, key, index) in posts" :key="index">
         <nuxt-link :to="slugToUrl(item.slug)">{{ item.title }}</nuxt-link>
       </li>
     </ul>

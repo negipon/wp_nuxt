@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="post" v-for="item in posts">
+    <div class="post" v-for="(item, key, index) in posts" :key="index">
         <h3><nuxt-link :to="slugToUrl(item.slug)">{{ item.title }}</nuxt-link></h3>
         <div v-html="item.excerpt"></div>
         <strong class="more"><nuxt-link :to="slugToUrl(item.slug)">read more</nuxt-link></strong>

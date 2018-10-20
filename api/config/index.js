@@ -1,3 +1,3 @@
 export default {
-  baseUrl: "https://nuxt.craftedup.com/wp-json/wp/v2/"
+  baseUrl: "https://tokka2.ipon.biz/wp-json/wp/v2/"
 };

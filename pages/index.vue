@@ -2,11 +2,7 @@
   <div>
     <section class="header">
       <categories :categories="categories"></categories>
-      <img class="logo" src="~assets/logo.svg">
-
-      <h2 class="subtitle">
-        WordPress as a Progressive Web App
-      </h2>
+      <h2 class="subtitle">{{title}}</h2>
     </section>
     <section class="container">
       <div>
@@ -38,7 +34,7 @@ export default {
   },
   head() {
     return {
-      title: `Nuxt WordPress | Home`,
+      title: `Lunch | Home`,
       meta: [
         {
           name: 'description',
@@ -49,7 +45,7 @@ export default {
   },
   data() {
     return {
-      title: 'default'
+      title: 'Lunch'
     }
   },
   mounted() {

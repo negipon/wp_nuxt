@@ -1,9 +1,6 @@
 <template>
   <div class="categories-menu">
     <div>
-       <a href="https://github.com/srhise/nuxt-wordpress-pwa" rel="noopener">github</a>
-    </div>
-    <div>
        <nuxt-link to="/">home</nuxt-link>
     </div>
     <div v-for="(item, key, index) in categories" :key="index">
